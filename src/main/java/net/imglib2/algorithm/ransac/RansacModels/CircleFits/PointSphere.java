@@ -39,7 +39,8 @@ public class PointSphere {
 				final Pair<Ellipsoid, List<Pair<RealLocalizable, T>>> f = sample(remainingPoints,
 						remainingPoints.size(), numsol, ndims);
 				if (f != null) {
-					List<double[]> pointlist = RansacEllipsoid.GetEllipsepoints(f.getA());
+					List<double[]> pointlist = RansacEllipsoid.GeometricEllipsepoint(f.getA());
+							//RansacEllipsoid.GeometricEllipsepoint(f.getA());
 
 					double size = pointlist.size();
 

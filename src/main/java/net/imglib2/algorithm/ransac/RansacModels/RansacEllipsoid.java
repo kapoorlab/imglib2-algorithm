@@ -41,6 +41,38 @@ public class RansacEllipsoid {
 
 	
 	
+	public static List<double[]> GeometricEllipsepoint(Ellipsoid ellipse) {
+		
+		List<double[]> pointlist = new ArrayList<double[]>();
+		
+		double[] center = ellipse.getCenter();
+		double[] axis = ellipse.getRadii();
+		double deltatheta = 1;
+		int length = center.length;
+		
+		for (int angle = 0; angle < 360; angle+=deltatheta) {
+			
+			double[] Cord = new double[length];
+			
+			for (int i = 0; i < length; ++i) {
+				
+				if(i == 0)
+				Cord[i] = center[i] + axis[i] * Math.cos(Math.toRadians(angle));
+				else
+				Cord[i] = center[i] + axis[i] * Math.sin(Math.toRadians(angle));	
+			}
+			
+			pointlist.add(Cord);
+		}
+		
+		 if (pointlist.size() > 0)
+				return pointlist;
+			 else
+				 return null;
+	}
+	
+	/*
+	
 	public static List<double[]> GetEllipsepoints(Ellipsoid ellipse){
 		
 		List<double[]> pointlist = new ArrayList<double[]>();
@@ -58,14 +90,13 @@ public class RansacEllipsoid {
 	
 	 if ((bounds.x + xCord[index])!= 0 && (bounds.y + yCord[index])!=0 )
 	 pointlist.add(new double[] {bounds.x + xCord[index], bounds.y + yCord[index]});
-	 
 	 }
 	 if (pointlist.size() > 0)
 		return pointlist;
 	 else
 		 return null;
 	}
-	
+	*/
 	
 	public static <T extends Comparable<T>>  double GetnearestPoint(List<Pair<RealLocalizable, T>> targetlist, double[] sourcepoint) {
 		
@@ -116,7 +147,8 @@ public class RansacEllipsoid {
 				final Pair<Ellipsoid, List<Pair<RealLocalizable, T>>> f = sample(remainingPoints,
 						remainingPoints.size(), outsideCutoffDistance, insideCutoffDistance, numsol, ndims);
 				if (f!=null) {
-				List<double[]> pointlist = GetEllipsepoints(f.getA());
+				List<double[]> pointlist = GeometricEllipsepoint(f.getA());
+						//GeometricEllipsepoint(f.getA());
 				double[] radii = f.getA().getRadii();
 				double perimeter = 0;
 				for (int i = 0; i < radii.length; ++i) {
@@ -126,7 +158,7 @@ public class RansacEllipsoid {
 					
 				}
 				perimeter*=3;
-				
+				System.out.println(perimeter);
 				double size = pointlist.size();
 				double count = 0;
 				if (size!= 0) {
@@ -157,9 +189,9 @@ public class RansacEllipsoid {
 				}
 				double percent = (size - count) / size;
 				
-				if (percent < minpercent || perimeter <= minperimeter || perimeter >= maxperimeter ) {
+				if (percent < minpercent ) {
 					
-					System.out.println("Wrong Ellipse detected, removing" );
+					System.out.println("Wrong Ellipse detected, removing (min percent violation)" );
 
 					segments.remove(f);
 					final List<Pair<RealLocalizable, T>> inlierPoints = new ArrayList<Pair<RealLocalizable, T>>();
@@ -167,6 +199,30 @@ public class RansacEllipsoid {
 						inlierPoints.add(p);
 					remainingPoints.addAll(inlierPoints);
 					
+					
+				}
+				
+				if(perimeter <= minperimeter) {
+					
+					System.out.println("Wrong Ellipse detected, removing (min perimeter violation)" );
+
+					segments.remove(f);
+					final List<Pair<RealLocalizable, T>> inlierPoints = new ArrayList<Pair<RealLocalizable, T>>();
+					for (final Pair<RealLocalizable, T> p : f.getB())
+						inlierPoints.add(p);
+					remainingPoints.addAll(inlierPoints);
+					
+				}
+				
+				if(perimeter >= maxperimeter ) {
+					
+					System.out.println("Wrong Ellipse detected, removing (max perimeter violation)" );
+
+					segments.remove(f);
+					final List<Pair<RealLocalizable, T>> inlierPoints = new ArrayList<Pair<RealLocalizable, T>>();
+					for (final Pair<RealLocalizable, T> p : f.getB())
+						inlierPoints.add(p);
+					remainingPoints.addAll(inlierPoints);
 					
 				}
 				
