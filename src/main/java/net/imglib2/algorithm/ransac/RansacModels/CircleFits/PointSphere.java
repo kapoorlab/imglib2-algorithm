@@ -23,7 +23,6 @@ public class PointSphere {
 	public static <T extends Comparable<T>> ArrayList<Pair<Ellipsoid, List<Pair<RealLocalizable, T>>>> Allsamples(
 			final List<Pair<RealLocalizable, T>> points, final NumericalSolvers numsol, int maxiter, final int ndims) {
 
-		boolean fitted;
 
 		final List<Pair<RealLocalizable, T>> remainingPoints = new ArrayList<Pair<RealLocalizable, T>>();
 		if (points != null)
@@ -31,51 +30,20 @@ public class PointSphere {
 
 		final ArrayList<Pair<Ellipsoid, List<Pair<RealLocalizable, T>>>> segments = new ArrayList<Pair<Ellipsoid, List<Pair<RealLocalizable, T>>>>();
 
-		do {
+		
 
-			if (remainingPoints.size() > 0) {
-				fitted = false;
 
 				final Pair<Ellipsoid, List<Pair<RealLocalizable, T>>> f = sample(remainingPoints,
 						remainingPoints.size(), numsol, ndims);
 				if (f != null) {
-					List<double[]> pointlist = RansacEllipsoid.GeometricEllipsepoint(f.getA());
-							//RansacEllipsoid.GeometricEllipsepoint(f.getA());
 
-					double size = pointlist.size();
-
-					if (size != 0) {
-
-						int minps = 0;
-						if (ndims == 2)
-							minps = minpoints;
-						else
-							minps = minpointssphere;
-
-						if (f.getB().size() > minps) {
-
-							fitted = true;
 
 							segments.add(f);
 
-							final List<Pair<RealLocalizable, T>> inlierPoints = new ArrayList<Pair<RealLocalizable, T>>();
-							for (final Pair<RealLocalizable, T> p : f.getB())
-								inlierPoints.add(p);
-							remainingPoints.removeAll(inlierPoints);
-
-						}
-
-					}
 				}
-			} else {
+			
 
-				fitted = true;
-				break;
-			}
-
-		}
-
-		while (fitted);
+		
 
 		return segments;
 
@@ -112,9 +80,9 @@ public class PointSphere {
 				}
 
 				final Ellipsoid ellipsoid = FitCircle.yuryPetrov(coordinates, ndims);
+				
 				if (ellipsoid != null) {
 					bestEllipsoid = ellipsoid;
-
 				}
 			} catch (final IllegalArgumentException e) {
 
@@ -123,14 +91,10 @@ public class PointSphere {
 			}
 		}
 		if (bestEllipsoid != null) {
-			Pair<Ellipsoid, List<Pair<RealLocalizable, T>>> refined = fitToInliers(bestEllipsoid, points, numsol,
-					ndims);
-			if (refined == null) {
 
+			
 				return new ValuePair<Ellipsoid, List<Pair<RealLocalizable, T>>>(bestEllipsoid, points);
 
-			}
-			return refined;
 		}
 
 		else

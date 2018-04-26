@@ -21,14 +21,17 @@ public class FitCircle {
 		
 	
 		
-		if ( nPoints < 6 ) 
-			throw new IllegalArgumentException( "Too few points; need at least 6 to calculate a unique sphere" );
-
-	
-		RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 6);
 
 		
 		if (ndims > 2) {
+			
+			if ( nPoints < 4 ) 
+				throw new IllegalArgumentException( "Too few points; need at least 4 to calculate a unique sphere" );
+
+		
+			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 4);
+			
+			
 		for (int i = 0; i < nPoints; i++) {
 			final double x = points[i][0];
 			final double y = points[i][1];
@@ -75,6 +78,12 @@ public class FitCircle {
 		
 		else
 		{
+			
+			if ( nPoints < 3 ) 
+				throw new IllegalArgumentException( "Too few points; need at least 3 to calculate a unique circle" );
+
+		
+			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 3);
 			
 			for (int i = 0; i < nPoints; i++) {
 				final double x = points[i][0];

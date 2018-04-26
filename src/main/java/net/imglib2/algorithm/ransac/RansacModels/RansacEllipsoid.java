@@ -148,7 +148,6 @@ public class RansacEllipsoid {
 						remainingPoints.size(), outsideCutoffDistance, insideCutoffDistance, numsol, ndims);
 				if (f!=null) {
 				List<double[]> pointlist = GeometricEllipsepoint(f.getA());
-						//GeometricEllipsepoint(f.getA());
 				double[] radii = f.getA().getRadii();
 				double perimeter = 0;
 				for (int i = 0; i < radii.length; ++i) {
@@ -158,7 +157,6 @@ public class RansacEllipsoid {
 					
 				}
 				perimeter*=3;
-				System.out.println(perimeter);
 				double size = pointlist.size();
 				double count = 0;
 				if (size!= 0) {
@@ -193,11 +191,7 @@ public class RansacEllipsoid {
 					
 					System.out.println("Wrong Ellipse detected, removing (min percent violation)" );
 
-					segments.remove(f);
-					final List<Pair<RealLocalizable, T>> inlierPoints = new ArrayList<Pair<RealLocalizable, T>>();
-					for (final Pair<RealLocalizable, T> p : f.getB())
-						inlierPoints.add(p);
-					remainingPoints.addAll(inlierPoints);
+					Violation(segments, f, remainingPoints);
 					
 					
 				}
@@ -206,11 +200,7 @@ public class RansacEllipsoid {
 					
 					System.out.println("Wrong Ellipse detected, removing (min perimeter violation)" );
 
-					segments.remove(f);
-					final List<Pair<RealLocalizable, T>> inlierPoints = new ArrayList<Pair<RealLocalizable, T>>();
-					for (final Pair<RealLocalizable, T> p : f.getB())
-						inlierPoints.add(p);
-					remainingPoints.addAll(inlierPoints);
+					Violation(segments, f, remainingPoints);
 					
 				}
 				
@@ -218,11 +208,7 @@ public class RansacEllipsoid {
 					
 					System.out.println("Wrong Ellipse detected, removing (max perimeter violation)" );
 
-					segments.remove(f);
-					final List<Pair<RealLocalizable, T>> inlierPoints = new ArrayList<Pair<RealLocalizable, T>>();
-					for (final Pair<RealLocalizable, T> p : f.getB())
-						inlierPoints.add(p);
-					remainingPoints.addAll(inlierPoints);
+					Violation(segments, f, remainingPoints);
 					
 				}
 				
@@ -247,6 +233,17 @@ public class RansacEllipsoid {
 		
 		return segments;
 
+	}
+	
+	public static <T extends Comparable<T>>  void Violation(ArrayList<Pair<Ellipsoid, List<Pair<RealLocalizable, T>>>> segments, Pair<Ellipsoid, List<Pair<RealLocalizable, T>>> f, List<Pair<RealLocalizable, T>> remainingPoints) {
+		
+		segments.remove(f);
+		final List<Pair<RealLocalizable, T>> inlierPoints = new ArrayList<Pair<RealLocalizable, T>>();
+		for (final Pair<RealLocalizable, T> p : f.getB())
+			inlierPoints.add(p);
+		remainingPoints.addAll(inlierPoints);
+		
+		
 	}
 
 	public static <T extends Comparable<T>>  Pair<Ellipsoid, List<Pair<RealLocalizable, T>>> sample(
@@ -320,8 +317,7 @@ public class RansacEllipsoid {
 			final double d = result.distance;
 			final boolean inside = guess.test(point.getA());
 
-			// System.out.println(point.getDoublePosition(0) + " " +
-			// point.getDoublePosition(1));
+		
 			if ((inside && d <= insideCutoffDistance) || (!inside && d <= outsideCutoffDistance))
 				inliers.add(point);
 		}
