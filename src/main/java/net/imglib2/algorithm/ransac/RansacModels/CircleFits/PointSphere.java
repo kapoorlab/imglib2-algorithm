@@ -17,8 +17,8 @@ import net.imglib2.util.ValuePair;
 public class PointSphere {
 
 	// Fit a circle or a sphere over 3/ 4 points
-	static int minpoints = 3;
-	static int minpointssphere = 4;
+	static int minpoints = 6;
+	static int minpointssphere = 9;
 
 	public static <T extends Comparable<T>> ArrayList<Pair<Ellipsoid, List<Pair<RealLocalizable, T>>>> Allsamples(
 			final List<Pair<RealLocalizable, T>> points, final NumericalSolvers numsol, int maxiter, final int ndims) {
@@ -35,7 +35,7 @@ public class PointSphere {
 
 				final Pair<Ellipsoid, List<Pair<RealLocalizable, T>>> f = sample(remainingPoints,
 						remainingPoints.size(), numsol, ndims);
-				if (f != null) {
+				if (f != null ) {
 
 
 							segments.add(f);

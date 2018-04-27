@@ -17,7 +17,7 @@ import net.imglib2.util.ValuePair;
 import net.imglib2.view.Views;
 
 public class ConnectedComponentCoordinates {
-	static int span = 2;
+	static int span = 1;
 	public static <T extends Comparable<T>> ArrayList<Pair<RealLocalizable, T>> GetCoordinates(
 			RandomAccessibleInterval<T> source, final T threshold) {
 
@@ -86,7 +86,7 @@ public class ConnectedComponentCoordinates {
 
 		final Cursor<BitType> center = Views.iterable(source).localizingCursor();
 
-		// Creates a 5 by 5 neighborhood from which candidate points will be selected
+		// Creates a -span by span neighborhood from which candidate points will be selected
 		
 
 		final RectangleShape shape = new RectangleShape(span, true);

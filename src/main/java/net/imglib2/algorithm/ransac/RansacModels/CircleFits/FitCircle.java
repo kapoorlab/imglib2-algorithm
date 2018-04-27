@@ -25,11 +25,11 @@ public class FitCircle {
 		
 		if (ndims > 2) {
 			
-			if ( nPoints < 4 ) 
-				throw new IllegalArgumentException( "Too few points; need at least 4 to calculate a unique sphere" );
+			if ( nPoints < 9 ) 
+				throw new IllegalArgumentException( "Too few points; need at least 9 to calculate a unique sphere" );
 
 		
-			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 4);
+			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 9);
 			
 			
 		for (int i = 0; i < nPoints; i++) {
@@ -38,16 +38,24 @@ public class FitCircle {
 			final double z = points[i][2];
 			
 			double xx = x*x;
-			
+			double yy =y*y;
+			double zz = z*z;
+			double xy = 2 * x *y;
+			double xz = 2 * x * z;
+			double yz = 2 * y * z;
 		
 
 			
 
 			MatrixD.setEntry(i, 0, xx);
-			MatrixD.setEntry(i, 1, 2 * x);
-			MatrixD.setEntry(i, 2, 2 * y);
-			MatrixD.setEntry(i, 3, 2 * z);
-			
+			MatrixD.setEntry(i, 1, yy);
+			MatrixD.setEntry(i, 2, zz);
+			MatrixD.setEntry(i, 3, xy);
+			MatrixD.setEntry(i, 4, xz);
+			MatrixD.setEntry(i, 5, yz);
+			MatrixD.setEntry(i, 6, 2 * x);
+			MatrixD.setEntry(i, 7, 2 * y);
+			MatrixD.setEntry(i, 8, 2 * z);
 			
 			
 		}
@@ -79,25 +87,28 @@ public class FitCircle {
 		else
 		{
 			
-			if ( nPoints < 3 ) 
-				throw new IllegalArgumentException( "Too few points; need at least 3 to calculate a unique circle" );
+			if ( nPoints < 6 ) 
+				throw new IllegalArgumentException( "Too few points; need at least 6 to calculate a unique circle" );
 
 		
-			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 3);
+			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 6);
 			
 			for (int i = 0; i < nPoints; i++) {
 				final double x = points[i][0];
 				final double y = points[i][1];
 				
 				double xx = x*x;
-				
+				double yy =y*y;
+				double xy = 2 * x *y;
 			
 
 				
 
 				MatrixD.setEntry(i, 0, xx);
-				MatrixD.setEntry(i, 1, 2 * x);
-				MatrixD.setEntry(i, 2, 2 * y);
+				MatrixD.setEntry(i, 1, yy);
+				MatrixD.setEntry(i, 2, xy);
+				MatrixD.setEntry(i, 3, 2 * x);
+				MatrixD.setEntry(i, 4, 2 * y);
 				
 				
 				
@@ -143,14 +154,14 @@ public class FitCircle {
 	private static Ellipsoid ellipsoidFromEquation( final RealVector V )
 	{
 		final double a = V.getEntry(0);
-		final double b = V.getEntry(0);
-		final double c = V.getEntry(0);
-		final double d = 0;
-		final double e = 0;
-		final double f = 0;
-		final double g = V.getEntry(1);
-		final double h = V.getEntry(2);
-		final double i = V.getEntry(3);
+		final double b = V.getEntry( 1);
+		final double c = V.getEntry( 2);
+		final double d = V.getEntry( 3);
+		final double e = V.getEntry( 4);
+		final double f = V.getEntry( 5);
+		final double g = V.getEntry( 6);
+		final double h = V.getEntry( 7);
+		final double i = V.getEntry( 8);
 
 		double[] Coefficents = V.toArray();
 		
@@ -174,10 +185,10 @@ public class FitCircle {
 	private static Ellipsoid ellipsoidFromEquation2D( final RealVector V )
 	{
 		final double a = V.getEntry(0);
-		final double b = V.getEntry(0);
-		final double c = 0;
-		final double d = V.getEntry(1);
-		final double e = V.getEntry(2);
+		final double b = V.getEntry( 1);
+		final double c = V.getEntry( 2);
+		final double d = V.getEntry( 3);
+		final double e = V.getEntry( 4);
 		double[] Coefficents = V.toArray();
 
 		
@@ -206,6 +217,7 @@ public class FitCircle {
 			radii[ d ] = Math.sqrt( ev.get( d, d ) );
 		return radii;
 	}
+
 	
 	
 }

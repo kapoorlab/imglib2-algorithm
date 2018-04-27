@@ -6,12 +6,13 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.imglib2.RealLocalizable;
+import net.imglib2.type.logic.BitType;
 import net.imglib2.util.Pair;
 
 public class SortSegments {
 
 	
-	public static <T extends Comparable<T>>  void Sort(ArrayList<Pair<Ellipsoid, List<Pair<RealLocalizable, T>>>> segments) {
+	public static <T extends Comparable<T>> void Sort(ArrayList<Pair<Ellipsoid, List<Pair<RealLocalizable, T>>>> segments) {
 		
 		
 		Collections.sort(segments, new Comparator<Pair<Ellipsoid, List<Pair<RealLocalizable, T>>>>(){
@@ -43,20 +44,12 @@ public class SortSegments {
 				return o1.hashCode() - o2.hashCode();
 			}
 
-		
-			
-			
-			
-			
-			
-			
-			
-			
-			
 		});
 		
 		
 		
 	}
+	
+
 	
 }

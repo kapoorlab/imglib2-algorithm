@@ -46,14 +46,16 @@ public class FitEllipsoid
 		
 	
 		
-		if ( nPoints < 9 ) 
-			throw new IllegalArgumentException( "Too few points; need at least 9 to calculate a unique ellipsoid" );
-
-	
-		RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 9);
+		
 
 		
 		if (ndims > 2) {
+			
+			if ( nPoints < 9 ) 
+				throw new IllegalArgumentException( "Too few points; need at least 9 to calculate a unique ellipsoid" );
+
+		
+			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 9);
 		for (int i = 0; i < nPoints; i++) {
 			final double x = points[i][0];
 			final double y = points[i][1];
@@ -109,7 +111,11 @@ public class FitEllipsoid
 		
 		else
 		{
-			
+			if ( nPoints < 6 ) 
+				throw new IllegalArgumentException( "Too few points; need at least 6 to calculate a unique circle" );
+
+		
+			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 6);
 			for (int i = 0; i < nPoints; i++) {
 				final double x = points[i][0];
 				final double y = points[i][1];
