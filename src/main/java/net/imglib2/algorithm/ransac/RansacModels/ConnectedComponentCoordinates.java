@@ -1,6 +1,9 @@
 package net.imglib2.algorithm.ransac.RansacModels;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 
 import ij.IJ;
 import net.imglib2.Cursor;
@@ -72,10 +75,10 @@ public class ConnectedComponentCoordinates {
 		return coordinatelist;
 	}
 
-	public static ArrayList<Pair<RealLocalizable, BitType>> GetCoordinatesBit(
+	public static ArrayList<RealLocalizable> GetCoordinatesBit(
 			RandomAccessibleInterval<BitType> source) {
 
-		ArrayList<Pair<RealLocalizable, BitType>> coordinatelist = new ArrayList<Pair<RealLocalizable, BitType>>();
+		ArrayList<RealLocalizable> coordinatelist = new ArrayList<RealLocalizable>();
 
 		Interval interval = Intervals.expand(source, -1);
 		int ndims = source.numDimensions();
@@ -118,7 +121,7 @@ public class ConnectedComponentCoordinates {
 
 				if (isConnected) {
 
-					coordinatelist.add(new ValuePair<RealLocalizable, BitType>(rpos, centerValue));
+					coordinatelist.add(rpos);
 
 				}
 
@@ -126,7 +129,16 @@ public class ConnectedComponentCoordinates {
 
 		}
 
+	
 		return coordinatelist;
 	}
-
+	
+	
+	/**
+	 * Sor a list of reallocalizable
+	 * 
+	 * 
+	 */
+	
+	
 }

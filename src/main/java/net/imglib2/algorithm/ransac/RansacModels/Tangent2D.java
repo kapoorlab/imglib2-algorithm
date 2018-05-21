@@ -84,7 +84,7 @@ public class Tangent2D {
 
 		final double midxA = sourcepoint[0];
 
-		final double length = 15;
+		final double length = 20;
 		final double drawlength = 20;
 		double startxA = midxA - length / (Math.sqrt(1 + slopeA * slopeA));
 		double endxA = midxA + length / (Math.sqrt(1 + slopeA * slopeA));
@@ -100,14 +100,7 @@ public class Tangent2D {
 		double endyB = slopeB * endxB + interceptB;
 		
 		final double[] candidatepointstartA = new double[] {startxA, startyA};
-		final double[] candidatepointstartB = new double[] {startxB, startyB};
-		
-	
-		final double[] vectorstartA = new double[] {startxA - meanA[0], startyA - meanA[1]};
-		final double[] vectorstartB = new double[] {startxA - meanA[0], startyA - meanA[1]};
-		
-		final double[] candidatepointendA = new double[] {endxA, endyA};
-		final double[] candidatepointendB = new double[] {endxB, endyB};
+
 		
 	
 		 double[] realstartpoint = new double[candidatepointstartA.length];
@@ -179,17 +172,7 @@ public class Tangent2D {
 		return angleandline;
 
 	}
-	
-	private static double Distance(double[] minCorner, double[] maxCorner) {
-		double distance = 0;
 
-		for (int d = 0; d < minCorner.length; ++d) {
-
-			distance += Math.pow((minCorner[d] - maxCorner[d]), 2);
-
-		}
-		return distance;
-	}
 
 	public static double Distance(final double[] minCorner, final int[] maxCorner) {
 
