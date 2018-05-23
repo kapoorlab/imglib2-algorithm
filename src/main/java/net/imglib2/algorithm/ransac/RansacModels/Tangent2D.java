@@ -84,20 +84,47 @@ public class Tangent2D {
 
 		final double midxA = sourcepoint[0];
 
-		final double length = 20;
+		final double length = 15;
 		final double drawlength = 20;
+		
+		double startxmidA = midxA - 0.5 * length / (Math.sqrt(1 + slopeA * slopeA));
+		double endxmidA = midxA + 0.5 * length / (Math.sqrt(1 + slopeA * slopeA));
+		
 		double startxA = midxA - length / (Math.sqrt(1 + slopeA * slopeA));
 		double endxA = midxA + length / (Math.sqrt(1 + slopeA * slopeA));
+		
+		double startxlongA = midxA - 1.5 * length / (Math.sqrt(1 + slopeA * slopeA));
+		double endxlongA = midxA + 1.5 * length / (Math.sqrt(1 + slopeA * slopeA));
 
+		double startymidA = slopeA * startxmidA + interceptA;
+		double endymidA = slopeA * endxmidA + interceptA;
+		
 		double startyA = slopeA * startxA + interceptA;
 		double endyA = slopeA * endxA + interceptA;
 		
+		double startylongA = slopeA * startxlongA + interceptA;
+		double endylongA = slopeA * endxlongA + interceptA;
+		
+		double startxmidB = midxA - 0.5 * length / (Math.sqrt(1 + slopeB * slopeB));
+		double endxmidB = midxA + 0.5 * length / (Math.sqrt(1 + slopeB * slopeB));
 		
 		double startxB = midxA - length / (Math.sqrt(1 + slopeB * slopeB));
 		double endxB = midxA + length / (Math.sqrt(1 + slopeB * slopeB));
 
+		double startxlongB = midxA - 1.5 * length / (Math.sqrt(1 + slopeB * slopeB));
+		double endxlongB = midxA + 1.5 * length / (Math.sqrt(1 + slopeB * slopeB));
+		
 		double startyB = slopeB * startxB + interceptB;
 		double endyB = slopeB * endxB + interceptB;
+		
+		double startymidB = slopeB * startxmidB + interceptB;
+		double endymidB = slopeB * endxmidB + interceptB;
+		
+	
+		
+		double startylongB = slopeB * startxlongB + interceptB;
+		double endylongB = slopeB * endxlongB + interceptB;
+		
 		
 		final double[] candidatepointstartA = new double[] {startxA, startyA};
 
@@ -105,7 +132,41 @@ public class Tangent2D {
 	
 		 double[] realstartpoint = new double[candidatepointstartA.length];
 	     double[] realendpoint = new double[candidatepointstartA.length];
-		if(!ellipseroiA.contains((int)startxA, (int)startyA) && !ellipseroiB.contains((int)startxA, (int)startyA) ) {
+	     
+	     int startcountA = 0;
+	     int endcountA = 0;
+	     if(!ellipseroiA.contains((int)startxA, (int)startyA) && !ellipseroiB.contains((int)startxA, (int)startyA)) 
+	    	  startcountA++;
+	     if(!ellipseroiA.contains((int)startxmidA, (int)startymidA) && !ellipseroiB.contains((int)startxmidA, (int)startymidA)) 
+   	      startcountA++;
+	     if(!ellipseroiA.contains((int)startxlongA, (int)startylongA) && !ellipseroiB.contains((int)startxlongA, (int)startylongA)) 
+	   	  startcountA++;
+	     
+	     if(!ellipseroiA.contains((int)endxA, (int)endyA) && !ellipseroiB.contains((int)endxA, (int)endyA)) 
+   	      endcountA++;
+         if(!ellipseroiA.contains((int)endxmidA, (int)endymidA) && !ellipseroiB.contains((int)endxmidA, (int)endymidA)) 
+	      endcountA++;
+         if(!ellipseroiA.contains((int)endxlongA, (int)endylongA) && !ellipseroiB.contains((int)endxlongA, (int)endylongA)) 
+  	      endcountA++;
+	     
+         
+         int startcountB = 0;
+	     int endcountB = 0;
+	     if(!ellipseroiA.contains((int)startxB, (int)startyB) && !ellipseroiB.contains((int)startxB, (int)startyB)) 
+	    	  startcountB++;
+	     if(!ellipseroiA.contains((int)startxmidB, (int)startymidB) && !ellipseroiB.contains((int)startxmidB, (int)startymidB)) 
+   	      startcountB++;
+	     if(!ellipseroiA.contains((int)startxlongB, (int)startylongB) && !ellipseroiB.contains((int)startxlongB, (int)startylongB)) 
+	   	  startcountB++;
+	     
+	     if(!ellipseroiA.contains((int)endxB, (int)endyB) && !ellipseroiB.contains((int)endxB, (int)endyB)) 
+   	      endcountB++;
+         if(!ellipseroiA.contains((int)endxmidB, (int)endymidB) && !ellipseroiB.contains((int)endxmidB, (int)endymidB)) 
+	      endcountB++;
+         if(!ellipseroiA.contains((int)endxlongB, (int)endylongB) && !ellipseroiB.contains((int)endxlongB, (int)endylongB)) 
+  	      endcountB++;
+	     
+		if(startcountA > endcountA) {
 			startxA = midxA - drawlength / (Math.sqrt(1 + slopeA * slopeA));
 			startyA = slopeA * startxA + interceptA;
 			
@@ -125,7 +186,7 @@ public class Tangent2D {
 			
 		
 		}
-		if(!ellipseroiA.contains((int)endxB, (int)endyB) && !ellipseroiB.contains((int)endxB, (int)endyB)) {
+		if(endcountB > startcountB) {
 			endxB = midxA + drawlength / (Math.sqrt(1 + slopeB * slopeB));
 			endyB = slopeB * endxB + interceptB;
 			

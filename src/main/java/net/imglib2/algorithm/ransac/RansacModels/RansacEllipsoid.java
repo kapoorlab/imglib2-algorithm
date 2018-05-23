@@ -148,15 +148,7 @@ public class RansacEllipsoid {
 						remainingPoints.size(), outsideCutoffDistance, insideCutoffDistance, numsol, ndims);
 				if (f!=null) {
 				List<double[]> pointlist = GeometricEllipsepoint(f.getA());
-				double[] radii = f.getA().getRadii();
-				double perimeter = 0;
-				for (int i = 0; i < radii.length; ++i) {
-					
-					if (radii[i]!=Double.NaN)
-						perimeter+=radii[i];
-					
-				}
-				perimeter*=3;
+			
 				double size = pointlist.size();
 				double count = 0;
 				if (size!= 0) {
@@ -195,22 +187,7 @@ public class RansacEllipsoid {
 					
 					
 				}
-				
-				if(perimeter <= minperimeter) {
-					
-					System.out.println("Wrong Ellipse detected, removing (min perimeter violation)" );
-
-					Violation(segments, f, remainingPoints);
-					
-				}
-				
-				if(perimeter >= maxperimeter ) {
-					
-					System.out.println("Wrong Ellipse detected, removing (max perimeter violation)" );
-
-					Violation(segments, f, remainingPoints);
-					
-				}
+		
 				
 				else
 					break;
@@ -222,7 +199,6 @@ public class RansacEllipsoid {
                 break;
 			}
             if (iter >= maxiter) {
-	            fitted = true;
 	            break;   
             }
         

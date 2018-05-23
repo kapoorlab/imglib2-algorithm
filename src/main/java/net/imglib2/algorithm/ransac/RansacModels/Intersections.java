@@ -194,7 +194,7 @@ public class Intersections {
 			}
 
 		}
-		if (simcount >= 4) {
+		if (simcount >= 10) {
 			System.out.println("Ellipses are identical");
 			return null;
 		}
