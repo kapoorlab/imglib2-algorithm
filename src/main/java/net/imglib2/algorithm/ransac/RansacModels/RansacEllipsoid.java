@@ -71,32 +71,7 @@ public class RansacEllipsoid {
 				 return null;
 	}
 	
-	/*
 	
-	public static List<double[]> GetEllipsepoints(Ellipsoid ellipse){
-		
-		List<double[]> pointlist = new ArrayList<double[]>();
-		
-		EllipseRoi roi = DisplayasROI.create2DEllipse(ellipse.getCenter(), new double[] {ellipse.getCovariance()[0][0], ellipse.getCovariance()[0][1], ellipse.getCovariance()[1][1] });
-		
-   	
-    Rectangle bounds = roi.getBounds();
-     int[] xCord = roi.getXCoordinates();
-	 int[] yCord = roi.getYCoordinates();	
-	 int N = xCord.length; 
-	
-	 
-	 for (int index = 0; index < N; ++index) {
-	
-	 if ((bounds.x + xCord[index])!= 0 && (bounds.y + yCord[index])!=0 )
-	 pointlist.add(new double[] {bounds.x + xCord[index], bounds.y + yCord[index]});
-	 }
-	 if (pointlist.size() > 0)
-		return pointlist;
-	 else
-		 return null;
-	}
-	*/
 	
 	public static <T extends Comparable<T>>  double GetnearestPoint(List<Pair<RealLocalizable, T>> targetlist, double[] sourcepoint) {
 		
@@ -229,7 +204,7 @@ public class RansacEllipsoid {
 		  
 		  
 
-		final Random rand = new Random(System.currentTimeMillis());
+		final Random rand = new Random( 69997 );
 		final ArrayList<Integer> indices = new ArrayList<Integer>();
 		final double[][] coordinates = new double[numPointsPerSample][ndims];
 
