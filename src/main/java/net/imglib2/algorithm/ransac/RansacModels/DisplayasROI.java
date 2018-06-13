@@ -1,7 +1,11 @@
 package net.imglib2.algorithm.ransac.RansacModels;
 
+import org.ojalgo.finance.portfolio.MarketEquilibrium;
+
 import ij.gui.EllipseRoi;
 import ij.gui.Line;
+import ij.gui.OvalRoi;
+import ij.gui.Roi;
 import net.imglib2.RealLocalizable;
 
 public class DisplayasROI {
@@ -25,6 +29,21 @@ public class DisplayasROI {
 		final double scale1 = Math.sqrt(0.5 * (a + c + d)) ;
 		final double scale2 = Math.sqrt(0.5 * (a + c - d)) ;
 		final double theta = 0.5 * Math.atan2((2 * b), (a - c));
+		final double x = mean[0];
+		final double y = mean[1];
+		final double dx = scale1 * Math.cos(theta);
+		final double dy = scale1 * Math.sin(theta);
+		final EllipseRoi ellipse = new EllipseRoi(x - dx, y - dy, x + dx, y + dy, scale2 / scale1);
+		
+		return ellipse;
+	}
+	
+	public static EllipseRoi create2DCircle(final double[] mean, final double radius) {
+		
+		final double a = radius;
+		final double scale1 = Math.sqrt(a) ;
+		final double scale2 = Math.sqrt(a) ;
+		final double theta = 0;
 		final double x = mean[0];
 		final double y = mean[1];
 		final double dx = scale1 * Math.cos(theta);
