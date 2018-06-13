@@ -14,6 +14,7 @@ import net.imglib2.RealPoint;
 import net.imglib2.algorithm.neighborhood.Neighborhood;
 import net.imglib2.algorithm.neighborhood.RectangleShape;
 import net.imglib2.type.logic.BitType;
+import net.imglib2.type.numeric.real.FloatType;
 import net.imglib2.util.Intervals;
 import net.imglib2.util.Pair;
 import net.imglib2.util.ValuePair;
@@ -35,100 +36,46 @@ public class ConnectedComponentCoordinates {
 
 		final Cursor<T> center = Views.iterable(source).localizingCursor();
 
-		final RectangleShape shape = new RectangleShape(span, true);
-
-		for (final Neighborhood<T> localNeighborhood : shape.neighborhoods(source)) {
-
-			double[] posf = new double[ndims];
+		while(center.hasNext()) {
+			
 			final T centerValue = center.next();
-
+			double[] posf = new double[ndims];
 			center.localize(posf);
-
 			final RealPoint rpos = new RealPoint(posf);
-			// We are looking for pixels which are connected to pixels in the neighborhood
-			// having intensity above a certain threshold
-			boolean isConnected = false;
-
-			if (centerValue.compareTo(threshold) >= 0) {
-
-				for (final T value : localNeighborhood) {
-
-					if (centerValue.compareTo(value) >= 0) {
-
-						isConnected = true;
-
-						break;
-					}
-
-				}
-
-				if (isConnected) {
-
-					coordinatelist.add(new ValuePair<RealLocalizable, T>(rpos, centerValue));
-
-				}
-
-			}
-
+			if (centerValue.compareTo(threshold) >= 0) 
+				coordinatelist.add(new ValuePair<RealLocalizable, T>(rpos, centerValue));
+			
 		}
+		
 
 		return coordinatelist;
 	}
 
 	public static ArrayList<RealLocalizable> GetCoordinatesBit(
-			RandomAccessibleInterval<BitType> source) {
+			RandomAccessibleInterval<FloatType> actualRoiimg) {
 
 		ArrayList<RealLocalizable> coordinatelist = new ArrayList<RealLocalizable>();
 
-		Interval interval = Intervals.expand(source, -1);
-		int ndims = source.numDimensions();
+		int ndims = actualRoiimg.numDimensions();
 		if (ndims > 3)
 			IJ.error("Only three dimensional Ellipsoids are supported");
 
-		source = Views.interval(source, interval);
 
-		final Cursor<BitType> center = Views.iterable(source).localizingCursor();
+		final Cursor<FloatType> center = Views.iterable(actualRoiimg).localizingCursor();
 
-		// Creates a -span by span neighborhood from which candidate points will be selected
 		
 
-		final RectangleShape shape = new RectangleShape(span, true);
-
-		for (final Neighborhood<BitType> localNeighborhood : shape.neighborhoods(source)) {
-
+		while(center.hasNext()) {
+			
+			center.fwd();
 			double[] posf = new double[ndims];
-			final BitType centerValue = center.next();
-
 			center.localize(posf);
-
 			final RealPoint rpos = new RealPoint(posf);
-			// We are looking for pixels which are connected to pixels in the neighborhood
-			// having intensity above a certain threshold
-			boolean isConnected = false;
-
-			if (centerValue.getInteger() > 0) {
-
-				for (final BitType value : localNeighborhood) {
-
-					if (centerValue.compareTo(value) >= 0) {
-
-						isConnected = true;
-
-						break;
-					}
-
-				}
-
-				if (isConnected) {
-
-					coordinatelist.add(rpos);
-
-				}
-
+			if(center.get().getRealFloat() > 0) {
+				coordinatelist.add(rpos);
 			}
-
 		}
-
+		
 	
 		return coordinatelist;
 	}

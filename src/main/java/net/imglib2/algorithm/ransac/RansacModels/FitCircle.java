@@ -22,7 +22,7 @@ import Jama.Matrix;
  *
  * @author Tobias Pietzsch &lt;tobias.pietzsch@gmail.com&gt Modified by Varun Kapoor;
  */
-public class FitEllipsoid
+public class FitCircle
 {
 	/**
 	 * <p>
@@ -57,6 +57,8 @@ public class FitEllipsoid
 		
 			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 9);
 		for (int i = 0; i < nPoints; i++) {
+			
+			
 			final double x = points[i][0];
 			final double y = points[i][1];
 			final double z = points[i][2];
@@ -111,8 +113,7 @@ public class FitEllipsoid
 		
 		else
 		{
-			if ( nPoints < 6 ) 
-				throw new IllegalArgumentException( "Too few points; need at least 5 to calculate a unique ellipse" );
+		
 
 		
 			RealMatrix MatrixD = new Array2DRowRealMatrix(nPoints, 5);
@@ -157,7 +158,7 @@ public class FitEllipsoid
 			
 			
 			
-			return ellipsoidFromEquation2D( v );
+			return circleFromEquation2D( v );
 			
 			
 			
@@ -207,19 +208,21 @@ public class FitEllipsoid
 		double[][] covariance = new Matrix(aa).inverse().getArray();	
 		return (new Ellipsoid( cc, covariance , aa, null, computeAxisAndRadiiFromCovariance(covariance, n), Coefficents ));
 	}
-	private static Ellipsoid ellipsoidFromEquation2D( final RealVector V )
+
+	
+	
+	private static Ellipsoid circleFromEquation2D( final RealVector V )
 	{
 		final double a = V.getEntry(0);
-		final double b = V.getEntry( 1);
-		final double c = V.getEntry( 2);
+	
 		final double d = V.getEntry( 3);
 		final double e = V.getEntry( 4);
 		double[] Coefficents = V.toArray();
 
 		
 		final double[][] aa = new double[][] {
-				{ a, c },
-				{ c, b } };
+				{ a, 0 },
+				{ 0, a } };
 		final double[] bb = new double[] { d, e };
 		final double[] cc = new Matrix( aa ).solve( new Matrix( bb, 2 ) ).getRowPackedCopy();
 		LinAlgHelpers.scale( cc, -1, cc );
@@ -232,8 +235,6 @@ public class FitEllipsoid
 		return (new Ellipsoid( cc, covariance , aa, null, computeAxisAndRadiiFromCovariance(covariance, n), Coefficents ));
 	}
 	
-	
-
 	
 	private static double[] computeAxisAndRadiiFromCovariance(double[][] covariance, int n)
 	{
