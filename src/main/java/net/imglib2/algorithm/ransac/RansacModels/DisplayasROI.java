@@ -28,7 +28,10 @@ public class DisplayasROI {
 		final double d = Math.sqrt(a * a + 4 * b * b - 2 * a * c + c * c);
 		final double scale1 = Math.sqrt(0.5 * (a + c + d)) ;
 		final double scale2 = Math.sqrt(0.5 * (a + c - d)) ;
-		final double theta = 0.5 * Math.atan2((2 * b), (a - c));
+		final double theta;
+	
+		theta = 0.5 * Math.atan2((2 * b), (a - c));
+	
 		final double x = mean[0];
 		final double y = mean[1];
 		final double dx = scale1 * Math.cos(theta);
@@ -38,12 +41,20 @@ public class DisplayasROI {
 		return ellipse;
 	}
 	
+	
+	public static OvalRoi createOval(final double[] mean, final double radius) {
+		
+		OvalRoi currentRoi = new OvalRoi(mean[0], mean[1], radius, radius);
+		
+		return currentRoi;
+	}
+	
 	public static EllipseRoi create2DCircle(final double[] mean, final double radius) {
 		
 		final double a = radius;
 		final double scale1 = Math.sqrt(a) ;
 		final double scale2 = Math.sqrt(a) ;
-		final double theta = 0;
+		final double theta = 3.14 * 0.5;
 		final double x = mean[0];
 		final double y = mean[1];
 		final double dx = scale1 * Math.cos(theta);

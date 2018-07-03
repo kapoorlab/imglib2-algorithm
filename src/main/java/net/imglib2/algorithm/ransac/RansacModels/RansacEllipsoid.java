@@ -115,16 +115,20 @@ public class RansacEllipsoid {
 		int iter = 0;
 		do {
 
+			System.out.println("Iterating" + iter + " " + remainingPoints.size());
 			if (remainingPoints.size() > 0) {
 				fitted = false;
 
 				++iter;
 				final Pair<Ellipsoid, List<Pair<RealLocalizable, T>>> f = sample(remainingPoints,
 						remainingPoints.size(), outsideCutoffDistance, insideCutoffDistance, numsol, ndims);
+				
 				if (f!=null) {
 				List<double[]> pointlist = GeometricEllipsepoint(f.getA());
 			
 				double size = pointlist.size();
+				
+				
 				double count = 0;
 				if (size!= 0) {
 				for (int index = 0; index < pointlist.size(); ++index) {

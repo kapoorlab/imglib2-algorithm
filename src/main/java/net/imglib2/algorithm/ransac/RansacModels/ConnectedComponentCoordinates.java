@@ -42,7 +42,7 @@ public class ConnectedComponentCoordinates {
 			double[] posf = new double[ndims];
 			center.localize(posf);
 			final RealPoint rpos = new RealPoint(posf);
-			if (centerValue.compareTo(threshold) >= 0) 
+			if (centerValue.compareTo(threshold) > 0) 
 				coordinatelist.add(new ValuePair<RealLocalizable, T>(rpos, centerValue));
 			
 		}
