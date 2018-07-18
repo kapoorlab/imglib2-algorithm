@@ -37,9 +37,8 @@ public class FitLocalEllipsoid {
 		
 		
 		
-		final Circle ellipsoid = Circle.FitCircleMA(pointA, pointB, pointC);
+		final Circle ellipsoid = Circle.FitCircleMb(pointA, pointB, pointC);
 				
-				//FitEllipsoid.yuryPetrov(coordinates, ndims);
 		RansacFunctionEllipsoid localellipse = new RansacFunctionEllipsoid(ellipsoid, points, points);
 		
 		
