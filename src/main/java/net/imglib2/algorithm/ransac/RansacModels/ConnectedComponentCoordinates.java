@@ -1,19 +1,12 @@
 package net.imglib2.algorithm.ransac.RansacModels;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
-
 import ij.IJ;
 import net.imglib2.Cursor;
 import net.imglib2.Interval;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.RealLocalizable;
 import net.imglib2.RealPoint;
-import net.imglib2.algorithm.neighborhood.Neighborhood;
-import net.imglib2.algorithm.neighborhood.RectangleShape;
-import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.real.FloatType;
 import net.imglib2.util.Intervals;
 import net.imglib2.util.Pair;
@@ -55,7 +48,6 @@ public class ConnectedComponentCoordinates {
 			RandomAccessibleInterval<FloatType> actualRoiimg) {
 
 		ArrayList<RealLocalizable> coordinatelist = new ArrayList<RealLocalizable>();
-
 		int ndims = actualRoiimg.numDimensions();
 		if (ndims > 3)
 			IJ.error("Only three dimensional Ellipsoids are supported");
@@ -68,15 +60,19 @@ public class ConnectedComponentCoordinates {
 		while(center.hasNext()) {
 			
 			center.fwd();
+			
 			double[] posf = new double[ndims];
 			center.localize(posf);
 			final RealPoint rpos = new RealPoint(posf);
-			if(center.get().getRealFloat() > 0) {
+			if(center.get().get() > 0) {
 				coordinatelist.add(rpos);
 			}
+			
 		}
 		
 	
+	
+		
 		return coordinatelist;
 	}
 	

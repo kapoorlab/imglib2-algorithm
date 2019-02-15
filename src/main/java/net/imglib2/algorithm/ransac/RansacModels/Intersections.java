@@ -8,7 +8,6 @@ import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
-import net.imglib2.RealLocalizable;
 import net.imglib2.util.Pair;
 /**
  * Takes in the GeneralEllipsoid of the form a x^2 + b y^2 + c z^2 + 2 d xy + 2

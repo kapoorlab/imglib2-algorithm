@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.imglib2.RealLocalizable;
-import net.imglib2.type.logic.BitType;
 import net.imglib2.util.Pair;
 
 public class SortSegments {

@@ -1,40 +1,15 @@
 package net.imglib2.algorithm.ransac.RansacModels;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
-import ij.IJ;
-import ij.gui.EllipseRoi;
-import ij.gui.Roi;
 import net.imglib2.RealLocalizable;
 import net.imglib2.RealPoint;
 import net.imglib2.algorithm.ransac.RansacModels.DistPointHyperEllipsoid.Result;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import net.imagej.DrawingTool;
-import net.imglib2.Cursor;
 import net.imglib2.KDTree;
-import net.imglib2.RandomAccess;
-import net.imglib2.RealLocalizable;
-import net.imglib2.RealPoint;
-import net.imglib2.algorithm.neighborhood.Neighborhood;
-import net.imglib2.algorithm.neighborhood.RectangleShape;
-import net.imglib2.img.Img;
-import net.imglib2.img.array.ArrayImg;
-import net.imglib2.img.array.ArrayImgs;
-import net.imglib2.img.basictypeaccess.array.FloatArray;
 import net.imglib2.neighborsearch.NearestNeighborSearchOnKDTree;
-import net.imglib2.type.numeric.real.FloatType;
 import net.imglib2.util.Pair;
-import net.imglib2.util.Util;
 import net.imglib2.util.ValuePair;
 
 public class RansacEllipsoid {

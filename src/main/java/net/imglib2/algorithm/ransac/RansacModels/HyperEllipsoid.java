@@ -1,15 +1,11 @@
 package net.imglib2.algorithm.ransac.RansacModels;
 
-import java.util.Collection;
-
 import Jama.EigenvalueDecomposition;
 import Jama.Matrix;
 
-import net.imglib2.AbstractRealLocalizable;
 import net.imglib2.RealLocalizable;
 import net.imglib2.RealPoint;
 import net.imglib2.roi.geom.real.AbstractEllipsoid;
-import net.imglib2.roi.geom.real.Ellipsoid;
 import net.imglib2.util.LinAlgHelpers;
 
 /**

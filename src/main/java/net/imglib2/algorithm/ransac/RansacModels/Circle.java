@@ -59,7 +59,6 @@ public class Circle {
 				}
 				double sign = 1;
 				
-					
 				Circle threepoint = new Circle(new double[] { centrad[0], centrad[1] },pa, pb,pc, centrad[2], sign);
 				return threepoint;
 				
@@ -101,7 +100,6 @@ public class Circle {
 			centrad[2] = Math.sqrt(Math.pow((pa[0] - centrad[0]), 2) + Math.pow((pa[1] - centrad[1]), 2));
 		}
 		double sign = 1;
-		
 			
 		Circle threepoint = new Circle(new double[] { centrad[0], centrad[1] },pa, pb, pc, centrad[2], sign);
 		return threepoint;

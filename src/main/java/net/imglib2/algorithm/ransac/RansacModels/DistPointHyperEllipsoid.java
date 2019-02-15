@@ -1,10 +1,5 @@
 package net.imglib2.algorithm.ransac.RansacModels;
 
-import java.awt.image.SampleModel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import net.imglib2.RealLocalizable;
 import net.imglib2.RealPoint;
 import net.imglib2.util.LinAlgHelpers;

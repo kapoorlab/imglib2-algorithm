@@ -1,13 +1,7 @@
 package net.imglib2.algorithm.ransac.RansacModels;
 
-import java.util.ArrayList;
-
-import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealVector;
-
 import ij.gui.EllipseRoi;
 import ij.gui.Line;
-import net.imglib2.RealLocalizable;
 import net.imglib2.util.Pair;
 
 public class Tangent2D {

@@ -1,12 +1,8 @@
 package net.imglib2.algorithm.ransac.RansacModels;
 
-import org.ojalgo.finance.portfolio.MarketEquilibrium;
-
 import ij.gui.EllipseRoi;
 import ij.gui.Line;
 import ij.gui.OvalRoi;
-import ij.gui.Roi;
-import net.imglib2.RealLocalizable;
 
 public class DisplayasROI {
 

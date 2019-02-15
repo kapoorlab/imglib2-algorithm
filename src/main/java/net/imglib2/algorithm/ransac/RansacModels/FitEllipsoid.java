@@ -2,10 +2,6 @@ package net.imglib2.algorithm.ransac.RansacModels;
 
 
 import net.imglib2.util.LinAlgHelpers;
-import net.imglib2.util.Pair;
-import net.imglib2.util.ValuePair;
-
-import org.apache.commons.math3.*;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.DecompositionSolver;
@@ -13,7 +9,6 @@ import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.linear.SingularValueDecomposition;
 
-import Jama.CholeskyDecomposition;
 import Jama.EigenvalueDecomposition;
 import Jama.Matrix;
 
